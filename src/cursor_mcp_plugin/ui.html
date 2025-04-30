@@ -1,3 +1,7 @@
+git add src/cursor_mcp_plugin/ui.html
+git commit -m "fix: fix channelName to static 'figma'"
+git push origin main
+
 <!DOCTYPE html>
 <html>
   <head>
@@ -309,16 +313,22 @@
           state.socket = new WebSocket(`ws://localhost:${port}`);
 
           state.socket.onopen = () => {
-            // Generate random channel name
-            const channelName = generateChannelName();
+            // Use fixed channel name
+            const channelName = "figma";
             console.log("Joining channel:", channelName);
             state.channel = channelName;
 
-            // Join the channel using the same format as App.tsx
+            // Join the channel using MCP format
             state.socket.send(
               JSON.stringify({
-                type: "join",
+                id: generateId(),
+                type: "message",
                 channel: channelName.trim(),
+                message: {
+                  id: generateId(),
+                  command: "join",
+                  params: {},
+                }
               })
             );
           };
