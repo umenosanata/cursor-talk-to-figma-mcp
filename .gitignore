@@ -2,3 +2,23 @@ node_modules/
 .cursor/
 dist/
 docs/
+.env
+
+# Design tokens
+designs/figma_raw/tokens/**/*.json
+designs/processed/**/*.json
+designs/processed/**/*.css
+
+# Keep directory structure
+!designs/figma_raw/tokens/colors/.gitkeep
+!designs/figma_raw/tokens/colors/palette/.gitkeep
+!designs/processed/.gitkeep
+
+# Node modules and build
+node_modules/
+dist/
+build/
+
+# IDE and OS files
+.DS_Store
+*.log

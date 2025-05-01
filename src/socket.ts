@@ -77,7 +77,7 @@ const server = Bun.serve({
         console.log("Received message from client:", message);
         const data = JSON.parse(message as string);
 
-        if (data.type === "join") {
+        if (data.type === "join" || (data.type === "message" && data.message?.command === "join")) {
           const channelName = data.channel;
           if (!channelName || typeof channelName !== "string") {
             ws.send(JSON.stringify({
@@ -103,12 +103,12 @@ const server = Bun.serve({
             channel: channelName
           }));
 
-          console.log("Sending message to client:", data.id);
+          console.log(`[INFO] Joined channel: ${channelName}`);
 
           ws.send(JSON.stringify({
             type: "system",
             message: {
-              id: data.id,
+              id: data.id || data.message?.id,
               result: "Connected to channel: " + channelName,
             },
             channel: channelName

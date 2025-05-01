@@ -358,11 +358,44 @@ git push origin main
                     },
                     "*"
                   );
+
+                  // Send getDesignTokens command after successful join
+                  state.socket.send(
+                    JSON.stringify({
+                      id: generateId(),
+                      type: "message",
+                      channel: state.channel,
+                      message: {
+                        id: generateId(),
+                        command: "getDesignTokens",
+                        params: {}
+                      }
+                    })
+                  );
                 }
               } else if (data.type === "error") {
                 console.error("Error:", data.message);
                 updateConnectionStatus(false, `Error: ${data.message}`);
                 state.socket.close();
+              }
+
+              // Handle getDesignTokens response
+              if (data.command === "getDesignTokens") {
+                const tokens = data.result;  // [{id,name,type,value},…]
+                console.log("Fetched design tokens:", tokens);
+                // Forward tokens to MCP server
+                state.socket.send(
+                  JSON.stringify({
+                    id: generateId(),
+                    type: "message",
+                    channel: state.channel,
+                    message: {
+                      id: generateId(),
+                      command: "designTokens",
+                      params: { tokens }
+                    }
+                  })
+                );
               }
 
               handleSocketMessage(data);

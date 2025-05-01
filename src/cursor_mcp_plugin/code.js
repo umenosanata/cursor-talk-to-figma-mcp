@@ -1,6 +1,25 @@
 // This is the main code file for the Cursor MCP Figma plugin
 // It handles Figma API commands
 
+// Helper function to fetch design tokens
+async function fetchDesignTokens() {
+  // Get all local variables
+  const vars = figma.getLocalVariables();
+  // Extract and format necessary information
+  return vars.map(v => ({
+    id: v.id,
+    name: v.name,
+    type: v.type,  // "COLOR" / "ENUMERATOR" etc.
+    // Get light mode value and convert RGBA to HEX
+    value: (() => {
+      const rgba = v.valuesByMode.light;
+      const toHex = (n) =>
+        Math.round(n * 255).toString(16).padStart(2, "0");
+      return `#${toHex(rgba.r)}${toHex(rgba.g)}${toHex(rgba.b)}`;
+    })(),
+  }));
+}
+
 // Plugin state
 const state = {
   serverPort: 3055, // Default port
@@ -229,6 +248,13 @@ async function handleCommand(command, params) {
       return await setDefaultConnector(params);
     case "create_connections":
       return await createConnections(params);
+    case "getDesignTokens":
+      try {
+        const tokens = await fetchDesignTokens();
+        return tokens;
+      } catch (e) {
+        throw new Error(`Failed to fetch design tokens: ${e.message}`);
+      }
     default:
       throw new Error(`Unknown command: ${command}`);
   }

@@ -18,25 +18,44 @@ https://github.com/user-attachments/assets/129a14d2-ed73-470f-9a4c-2240b2a4885c
 curl -fsSL https://bun.sh/install | bash
 ```
 
-2. Run setup, this will also install MCP in your Cursor's active project
+2. Clone the repository and install dependencies:
+
+```bash
+git clone https://github.com/yourusername/cursor-talk-to-figma-mcp.git
+cd cursor-talk-to-figma-mcp
+bun install
+```
+
+3. Set up your environment:
+
+```bash
+# Copy the environment template
+cp .env.example .env
+
+# Edit .env with your Figma access token
+# Get your token from: https://www.figma.com/developers/api#access-tokens
+nano .env
+```
+
+4. Run setup, this will also install MCP in your Cursor's active project
 
 ```bash
 bun setup
 ```
 
-3. Start the Websocket server
+5. Start the Websocket server
 
 ```bash
 bun socket
 ```
 
-4. MCP server
+6. MCP server
 
 ```bash
 bunx cursor-talk-to-figma-mcp
 ```
 
-5. Install [Figma Plugin](#figma-plugin)
+7. Install [Figma Plugin](#figma-plugin)
 
 ## Quick Video Tutorial
 
@@ -63,11 +82,13 @@ Add the server to your Cursor MCP configuration in `~/.cursor/mcp.json`:
   "mcpServers": {
     "TalkToFigma": {
       "command": "bunx",
-      "args": ["cursor-talk-to-figma-mcp@latest"]
+      "args": ["cursor-talk-to-figma-mcp"]
     }
   }
 }
 ```
+
+Note: For local development, do not use `@latest` in the args. Use the local version instead.
 
 ### WebSocket Server
 
@@ -83,6 +104,7 @@ bun socket
 2. Choose "Link existing plugin"
 3. Select the `src/cursor_mcp_plugin/manifest.json` file
 4. The plugin should now be available in your Figma development plugins
+5. After making changes to the plugin, reload it in Figma to apply updates
 
 ## Windows + WSL Guide
 
