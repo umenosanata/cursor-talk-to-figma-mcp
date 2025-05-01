@@ -1,0 +1,93 @@
+{
+  "version": "1.0",
+  "metadata": {
+    "source": "Figma",
+    "description": "プリミティブカラートークン定義",
+    "lastUpdated": "2024-03-21"
+  },
+  "tokens": {
+    "colors": {
+      "primitive": {
+        "orange": {
+          "100": {
+            "value": "#fff4eb",
+            "type": "color",
+            "description": "最も明るいオレンジ"
+          },
+          "200": {
+            "value": "#ffe4d1",
+            "type": "color",
+            "description": "明るいオレンジ"
+          },
+          "300": {
+            "value": "#ffc49b",
+            "type": "color",
+            "description": "やや明るいオレンジ"
+          },
+          "400": {
+            "value": "#ff9e57",
+            "type": "color",
+            "description": "標準的なオレンジ"
+          },
+          "500": {
+            "value": "#f74c04",
+            "type": "color",
+            "description": "基準となるオレンジ（午前中カラー）"
+          },
+          "600": {
+            "value": "#cc3c00",
+            "type": "color",
+            "description": "やや暗いオレンジ"
+          },
+          "700": {
+            "value": "#a32f00",
+            "type": "color",
+            "description": "暗いオレンジ"
+          }
+        },
+        "neutral": {
+          "white": {
+            "value": "#ffffff",
+            "type": "color",
+            "description": "純白"
+          },
+          "100": {
+            "value": "#fffdfa",
+            "type": "color",
+            "description": "オフホワイト（背景色）"
+          },
+          "200": {
+            "value": "#f5f2ef",
+            "type": "color",
+            "description": "明るいグレー"
+          },
+          "300": {
+            "value": "#e6e0dc",
+            "type": "color",
+            "description": "やや明るいグレー"
+          },
+          "400": {
+            "value": "#9a918c",
+            "type": "color",
+            "description": "標準的なグレー（ボーダー色）"
+          },
+          "500": {
+            "value": "#766c66",
+            "type": "color",
+            "description": "やや暗いグレー"
+          },
+          "600": {
+            "value": "#534943",
+            "type": "color",
+            "description": "暗いグレー"
+          },
+          "700": {
+            "value": "#2f2825",
+            "type": "color",
+            "description": "最も暗いグレー"
+          }
+        }
+      }
+    }
+  }
+} 
