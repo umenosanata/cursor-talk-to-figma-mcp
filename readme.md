@@ -6,9 +6,28 @@ https://github.com/user-attachments/assets/129a14d2-ed73-470f-9a4c-2240b2a4885c
 
 ## Project Structure
 
-- `src/talk_to_figma_mcp/` - TypeScript MCP server for Figma integration
-- `src/cursor_mcp_plugin/` - Figma plugin for communicating with Cursor
-- `src/socket.ts` - WebSocket server that facilitates communication between the MCP server and Figma plugin
+- `src/` - Source code directory
+  - `talk_to_figma_mcp/` - TypeScript MCP server for Figma integration
+  - `cursor_mcp_plugin/` - Figma plugin for communicating with Cursor
+  - `socket.ts` - WebSocket server that facilitates communication
+- `designs/` - Design tokens and Figma exports
+  - `figma_raw/` - Raw JSON exports from Figma
+    - `tokens/` - Design token JSONs
+      - `colors/` - Color tokens
+        - `brand.json` - Brand color definitions
+        - `tone.json` - Tone color definitions
+        - `neutral.json` - Neutral color definitions
+        - `palette/` - Palette colors by category
+          - `orange.json`
+          - `yellow.json`
+          - `green.json`
+          - `cyan.json`
+          - `pink.json`
+          - `red.json`
+    - `components/` - Component-specific exports
+  - `processed/` - Processed and optimized tokens
+    - `tokens.json` - Consolidated tokens
+    - `variables.css` - Tokens exported as CSS variables
 
 ## Get Started
 
@@ -272,3 +291,43 @@ When working with the Figma MCP:
 ## License
 
 MIT
+
+## Design Token Management
+
+### RAG (Retrieval-Augmented Generation) Integration
+
+The design tokens are structured for efficient RAG usage in Cursor:
+
+1. **Token Organization**
+   - Each token category has its own JSON file
+   - Tokens are semantically grouped for better context
+   - Consistent naming patterns for easy retrieval
+
+2. **File Structure**
+   - Raw Figma exports: `designs/figma_raw/tokens/`
+   - Processed tokens: `designs/processed/`
+   - Each color category in separate files for targeted retrieval
+
+3. **Usage in Cursor**
+   - Reference tokens using path: `designs/figma_raw/tokens/colors/[category].json`
+   - Use processed tokens for optimized queries: `designs/processed/tokens.json`
+
+### Update Workflow
+
+1. Export design tokens from Figma
+2. Place raw JSON in appropriate directory under `designs/figma_raw/tokens/`
+3. Automated processing will update `processed/` directory
+4. Cursor will automatically use the latest tokens for RAG
+
+### Naming Conventions
+
+- File names: kebab-case (e.g., `brand-colors.json`)
+- Token names: camelCase
+- Color values: uppercase HEX (#FFFFFF)
+
+### Best Practices
+
+1. Always use the most specific token file for your context
+2. Reference processed tokens for better performance
+3. Keep raw exports for reference and debugging
+4. Update all related files when making changes

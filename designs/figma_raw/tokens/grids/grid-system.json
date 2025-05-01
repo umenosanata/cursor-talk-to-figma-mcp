@@ -1,0 +1,147 @@
+{
+    "systemName": "午前中クラブ グリッドシステム",
+    "version": "1.0.0", // 仕様書のバージョン（適宜更新）
+    "description": "レスポンシブデザインに対応したフルードグリッドシステム。画面幅に応じてカラム幅が伸縮し、1696pxでレイアウトが固定される。",
+    "corePrinciples": {
+      "base": "Fluid grid system",
+      "columnSystem": {
+        "desktop": 12,
+        "tablet": 8,
+        "mobile": 4
+      },
+      "columnWidth": {
+        "behavior": "Fluid up to freeze point (1696px)",
+        "minRecommended": "80px",
+        "calculationNote": "Calculated based on screen width, columns, gutter, and margin."
+      },
+      "gutterWidth": {
+        "behavior": "Fixed per breakpoint",
+        "tokens": ["spacing-16", "spacing-24", "spacing-32"]
+      },
+      "sideMargin": {
+        "behavior": "Minimum value fixed per breakpoint up to freeze point.",
+        "tokens": ["spacing-16", "spacing-24", "spacing-32", "etc."], // 実際に使用するトークンをリストアップ
+        "note": "Additional whitespace added outside the minimum margin above freeze point."
+      },
+      "contentArea": "Region within screen width excluding side margins.",
+      "centering": "Layout is centered horizontally at all breakpoints.",
+      "baseGridUnit": "8px"
+    },
+    "freezePoint": {
+      "screenWidth": "1696px",
+      "description": "Layout width becomes fixed at this screen width and above.",
+      "fixedValues": {
+        "columnWidthApprox": "106.67px",
+        "gutterWidth": "32px",
+        "sideMargin": "32px",
+        "columns": 12 // フリーズ時のカラム数
+      }
+    },
+    "majorBreakpoints": [
+      {
+        "name": "Mobile",
+        "screenWidthAt": "0px+",
+        "columns": 4,
+        "gutter": {
+          "value": "16px",
+          "token": "spacing-16"
+        },
+        "sideMarginMin": {
+          "value": "16px",
+          "token": "spacing-16"
+        },
+        "notes": [
+          "通常のマージン目標は24px (`spacing-24`)。",
+          "画面が狭い場合、カラム幅80px維持のため、まずマージンを最小16pxまで縮小。",
+          "目安384px未満では、カラム幅80px未満を許容。(詳細は運用ガイドライン参照)"
+        ]
+      },
+      {
+        "name": "Tablet",
+        "screenWidthAt": "768px+",
+        "columns": 8,
+        "gutter": {
+          "value": "16px",
+          "token": "spacing-16"
+        },
+        "sideMarginMin": {
+          "value": "24px",
+          "token": "spacing-24"
+        },
+        "notes": []
+      },
+      {
+        "name": "Desktop",
+        "screenWidthAt": "1024px+",
+        "columns": 12,
+        "gutter": {
+          "value": "24px",
+          "token": "spacing-24"
+        },
+        "sideMarginMin": {
+          "value": "32px",
+          "token": "spacing-32"
+        },
+        "notes": []
+      },
+      {
+        "name": "Desktop Wide",
+        "screenWidthAt": "1440px+",
+        "columns": 12,
+        "gutter": {
+          "value": "32px",
+          "token": "spacing-32"
+        },
+        "sideMarginMin": {
+          "value": "32px",
+          "token": "spacing-32"
+        },
+        "notes": []
+      },
+      {
+        "name": "Desktop X-Wide",
+        "screenWidthAt": "1920px+",
+        "columns": 12, // フリーズ時のカラム数 (参考)
+        "gutter": {   // フリーズ時の値 (参考)
+          "value": "32px",
+          "token": "spacing-32"
+        },
+        "sideMarginMin": { // フリーズ時の値 (参考)
+          "value": "32px",
+          "token": "spacing-32"
+        },
+        "notes": [
+          "Default Freeze is at 1696px.",
+          "1696pxを超えるとレイアウトは固定され中央揃え。超過分はマージン外の余白として吸収。"
+        ]
+      }
+    ],
+    "columnSpanning": {
+      "guideline": "Primarily use defined columns (12, 8, 4). Spanning columns is permitted. Avoid further subdividing single columns if possible.",
+      "calculationBasis": "Consider total width of spanned columns and included gutters."
+    },
+    "spacingTokens": {
+      "usage": "Must be used for gutter widths and minimum side margins.",
+      "management": "Recommended to manage as styles/variables in design tools.",
+      "list": ["spacing-16", "spacing-24", "spacing-32", "etc."] // 実際に定義されているトークンをリストアップ
+    },
+    "contentAreaGuideline": {
+      "behaviorBelowFreeze": "Fluid, content area width changes with screen width.",
+      "behaviorAtOrAboveFreeze": "Layout width fixed at 1696px, centered. Additional space absorbed outside defined margins."
+    },
+    "operationalGuidelines": {
+      "considerAllBreakpoints": "Verify design and functionality across all breakpoints, boundaries, and around the freeze point.",
+      "minColumnWidthMaintenance": {
+        "target": "Strongly recommended target minimum of 80px.",
+        "adjustmentSteps": [
+          "Mobile: If column width < 80px (approx. < 400px screen), reduce side margin from 24px target down to 16px minimum.",
+          "Mobile: If still insufficient (approx. < 384px screen), permit column width < 80px."
+        ],
+        "implementation": "Design content to reflow naturally. Do not force 80px min-width with CSS.",
+        "designConsideration": "Ensure minimal readability even below 80px column width."
+      },
+      "strictTokenUsage": "Consistently use defined spacing tokens.",
+      "componentDesign": "Base reusable components on this grid system (columns, gutters, 8px grid, freeze behavior). Ensure proper scaling/reflowing.",
+      "extremeScreenwidths": "Consider requirements for very narrow (< 320px) or very wide screens if necessary."
+    }
+  }
