@@ -4,8 +4,7 @@ dist/
 docs/
 .env
 
-# Design tokens
-designs/figma_raw/tokens/**/*.json
+# Design tokens - processed files only
 designs/processed/**/*.json
 designs/processed/**/*.css
 
